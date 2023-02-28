@@ -3,17 +3,17 @@ import cv2
 import torch
 import numpy as np
 
+def prep_img(img_string, hw):
+    img = cv2.imread("data/jpg/image_" + img_string + ".jpg")
+    out = cv2.resize(img, dsize=(hw, hw), interpolation=cv2.INTER_CUBIC).reshape((3,hw,hw))
+    out = torch.tensor(np.float32(out))/255
+
+    return out
+
 def ingest_data(anchor, positive, negative, hw = 224):
-    anchor_img = cv2.imread("data/jpg/image_" + anchor + ".jpg")
-    positive_img = cv2.imread("data/jpg/image_" + positive + ".jpg")
-    negative_img = cv2.imread("data/jpg/image_" + negative + ".jpg")
 
-    anchor_out = cv2.resize(anchor_img, dsize=(hw, hw), interpolation=cv2.INTER_CUBIC).reshape((3,hw,hw ))
-    positive_out = cv2.resize(positive_img, dsize=(hw, hw), interpolation=cv2.INTER_CUBIC).reshape((3,hw,hw ))
-    negative_out = cv2.resize(negative_img, dsize=(hw, hw), interpolation=cv2.INTER_CUBIC).reshape((3,hw,hw ))
-
-    anchor_out = torch.tensor(np.float32(anchor_out))
-    positive_out = torch.tensor(np.float32(positive_out))
-    negative_out = torch.tensor(np.float32(negative_out))
+    anchor_out = prep_img(anchor, hw)
+    positive_out = prep_img(positive, hw)
+    negative_out = prep_img(negative, hw)
 
     return anchor_out, positive_out, negative_out 
