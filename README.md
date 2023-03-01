@@ -21,8 +21,8 @@ Ensure that the system provides adequate recommendations and in a timely manner.
 ## Algorithm Candidates
 
 1. SIFT, SURF 
-2. ResNet
-3. Triple Loss (Siamese Network)
+2. ResNet with Triplet Loss
+3. Siamese Network with Triplet Loss
 
 Workflow of the Model 
 
@@ -30,7 +30,7 @@ Workflow of the Model
 2. With the model, run it through all the existing images to get the embeddings (encodings/features) - should be NX128 embeddings (the index)
 3. During inference, the model will be run on the query image, and compare it with the pre-calculated embeddings - get similarity scores
 4. Rank the similarity score and get the K most similar images
-5. (Stretch) - visualise the images 
+5. Visualise the images
 
 
 

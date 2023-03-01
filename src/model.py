@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import torchvision.models as models
 
 def calc_end_dim(hw):
     """helper function so that the dimension of the img (after convolving) will be exactly what can be fed into FCN
@@ -32,6 +33,7 @@ class SiameseNetwork(nn.Module):
         )
         
         self.end_dim = calc_end_dim(hw)
+        # print (self.end_dim)
 
         self.fc = nn.Sequential(
             nn.Linear(64*self.end_dim*self.end_dim, 512), # 64x64 => 13x13, 224x224 => 53x54
@@ -45,4 +47,25 @@ class SiameseNetwork(nn.Module):
         x = x.view(-1, 64*self.end_dim*self.end_dim) # 64x64 => 13x13, 224x224 => 53x54
         x = self.fc(x)
         # x = nn.functional.normalize(x)
+        return x
+    
+class ResNetEmbedding(nn.Module):
+    def __init__(self, backbone=None, freeze_backbone = False):
+        super().__init__()
+        if backbone is None:
+            # backbone = models.resnet50(num_classes=128)
+
+            # https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html
+            backbone = models.resnet50(weights = 'IMAGENET1K_V1')
+            if freeze_backbone:
+                for param in backbone.parameters():
+                    param.requires_grad = False
+            num_ftrs = backbone.fc.in_features
+            backbone.fc = nn.Linear(num_ftrs, 128)
+
+        self.backbone = backbone
+
+    def forward(self, x):
+        x = self.backbone(x)
+        x = nn.functional.normalize(x, dim=1)
         return x

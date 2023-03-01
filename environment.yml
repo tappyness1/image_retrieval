@@ -8,3 +8,5 @@ dependencies:
     - opencv-python
     - scipy
     - tqdm
+    - matplotlib
+    - pyyaml
