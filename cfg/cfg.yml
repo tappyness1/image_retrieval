@@ -2,10 +2,10 @@ general:
   labels_fpath: 'data/jpg/imagelabels.mat'
 
 train:
-  epochs: 1
+  epochs: 10
   hw: 224
-  save_network_path: "trained_model/trained_network_model3_resnet.pt"
-  embeddings_output_path: "stored_embeddings/embeddings_model3_resnet.json"
+  save_network_path: "trained_model/trained_network_model4_resnet_freeze_10epochs.pt"
+  embeddings_output_path: "stored_embeddings/embeddings_model3_resnet_freeze_10epochs.json"
   network: "resnet"
 
 resnet:

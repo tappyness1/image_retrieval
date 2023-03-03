@@ -58,7 +58,7 @@ class image_retrieval:
         return
     
     # consider turning below into helper function
-    def retrieve_similar_img(self, input_image = "data/jpg/image_00001.jpg"):
+    def retrieve_similar_img(self, input_image = "data/jpg/image_00001.jpg", gen_visual = False):
         """_summary_
 
         Args:
@@ -70,7 +70,8 @@ class image_retrieval:
         retrieval_obj = golden_retriever(self.trained_network, self.embeddings, self.network)
         retrieval_obj.get_euclidean_dist(input_image, hw = self.hw) 
         img_list = retrieval_obj.retrieval()
-        visualise(input_image, img_list)
+        if gen_visual:
+            visualise(input_image, img_list)
         return img_list
 
     def evaluate(self, labels_fpath='data/jpg/imagelabels.mat'):
@@ -94,7 +95,9 @@ class image_retrieval:
 if __name__ == "__main__":
     model = image_retrieval()
     # model.main_function(saved_dict_path = "data_dict.json", trained_model_path = "trained_model/trained_network.pt", stored_embeddings_path = "stored_embeddings/embeddings.json")
-    # model.main_function(saved_dict_path = "data_dict.json", trained_model_path = "trained_model/trained_network_model3_resnet.pt", stored_embeddings_path = "stored_embeddings/embeddings.json")
-    model.main_function(saved_dict_path = "data_dict.json")
+    # model.main_function(saved_dict_path = "data_dict.json", trained_model_path = "trained_model/trained_network_model3_resnet.pt", stored_embeddings_path = "stored_embeddings/embeddings_model3_resnet.json")
+    # model.main_function(saved_dict_path = "data_dict.json", trained_model_path = "trained_model/trained_network_model4_resnet_pretrained.pt", stored_embeddings_path = "stored_embeddings/embeddings_model4_resnet_pretrained.json")
+    model.main_function(saved_dict_path = "data_dict.json", trained_model_path = "trained_model/trained_network_model5_resnet_freeze_10epochs.pt", stored_embeddings_path = "stored_embeddings/embeddings_model5_resnet_freeze_10epochs.json")
+    # model.main_function(saved_dict_path = "data_dict.json")
     model.retrieve_similar_img(input_image = "data/jpg/image_00001.jpg")
     
