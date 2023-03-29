@@ -98,7 +98,7 @@ resnet:
   freeze_backbone: True # not relevant
 ```
 
-Once all sorted, modify `main.py` with to only including the following run the following:
+Once all sorted, modify `main.py` with the following:
 
 ```
 if __name__ == "__main__":

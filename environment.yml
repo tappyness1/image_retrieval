@@ -3,6 +3,7 @@ dependencies:
   - pip
   - pip:
     - torch==1.13
+    - torchvision==0.14
     - scikit-learn
     - pandas
     - opencv-python

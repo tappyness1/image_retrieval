@@ -19,6 +19,7 @@ def calc_end_dim(hw):
     return int(end_res)
 
 class SiameseNetwork(nn.Module):
+
     def __init__(self, emb_dim=128, hw = 64):
         super(SiameseNetwork, self).__init__()
         self.conv = nn.Sequential(
@@ -50,6 +51,7 @@ class SiameseNetwork(nn.Module):
         return x
     
 class ResNetEmbedding(nn.Module):
+
     def __init__(self, backbone=None, freeze_backbone = False):
         super().__init__()
         if backbone is None:

@@ -3,10 +3,10 @@ general:
 
 train:
   epochs: 10
-  hw: 224
+  hw: 64
   save_network_path: "trained_model/trained_network_model4_resnet_freeze_10epochs.pt"
   embeddings_output_path: "stored_embeddings/embeddings_model3_resnet_freeze_10epochs.json"
-  network: "resnet"
+  network: "resnet" # either resnet or siamese backbone
 
 resnet:
   freeze_backbone: True

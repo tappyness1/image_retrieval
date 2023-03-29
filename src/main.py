@@ -36,6 +36,7 @@ class image_retrieval:
         if trained_model_path:
             device = 'cuda' if torch.cuda.is_available() else 'cpu'
             self.trained_network = torch.load(trained_model_path, map_location=torch.device(device))
+
         else: 
             print ("Training Network")
             if self.network == 'resnet':
@@ -44,6 +45,12 @@ class image_retrieval:
                 self.trained_network = train_resnetembedder(self.data_dict,save_network_path = save_network_path, epochs = epochs, hw = self.hw, freeze_backbone = freeze_backbone)
             else:
                 self.trained_network = train_siamese(self.data_dict,save_network_path = save_network_path, epochs = epochs, hw = self.hw)
+        # else: 
+        #     print ("Training Network")
+
+        #     print(f"Training {self.network}")
+        #     freeze_backbone = self.cfg_obj['resnet']['freeze_backbone']
+        #     self.trained_network = train(self.data_dict, network = self.network, save_network_path = save_network_path, epochs = epochs, hw = self.hw, freeze_backbone = freeze_backbone)
 
         # change to eval state, but does not seem to be necessary
         # trained_network.eval() 
@@ -97,7 +104,7 @@ if __name__ == "__main__":
     # model.main_function(saved_dict_path = "data_dict.json", trained_model_path = "trained_model/trained_network.pt", stored_embeddings_path = "stored_embeddings/embeddings.json")
     # model.main_function(saved_dict_path = "data_dict.json", trained_model_path = "trained_model/trained_network_model3_resnet.pt", stored_embeddings_path = "stored_embeddings/embeddings_model3_resnet.json")
     # model.main_function(saved_dict_path = "data_dict.json", trained_model_path = "trained_model/trained_network_model4_resnet_pretrained.pt", stored_embeddings_path = "stored_embeddings/embeddings_model4_resnet_pretrained.json")
-    model.main_function(saved_dict_path = "data_dict.json", trained_model_path = "trained_model/trained_network_model5_resnet_freeze_10epochs.pt", stored_embeddings_path = "stored_embeddings/embeddings_model5_resnet_freeze_10epochs.json")
-    # model.main_function(saved_dict_path = "data_dict.json")
-    model.retrieve_similar_img(input_image = "data/jpg/image_00001.jpg")
+    # model.main_function(saved_dict_path = "data_dict.json", trained_model_path = "trained_model/trained_network_model5_resnet_freeze_10epochs.pt", stored_embeddings_path = "stored_embeddings/embeddings_model5_resnet_freeze_10epochs.json")
+    model.main_function(saved_dict_path = "data_dict.json")
+    # model.retrieve_similar_img(input_image = "data/jpg/image_00001.jpg")
     
